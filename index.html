@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <title>Pazwork by sakara</title>
+  </head>
+
+  <body>
+    <div id="container">
+      <div class="inner">
+
+        <header>
+          <h1>Pazwork</h1>
+          <h2>PazWork is based on Hackwork v2.0.1 (http://git.io/hackwork) but improved and powered</h2>
+        </header>
+
+        <section id="downloads" class="clearfix">
+          <a href="https://github.com/sakara/PazWork/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
+          <a href="https://github.com/sakara/PazWork/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
+          <a href="https://github.com/sakara/PazWork" id="view-on-github" class="button"><span>View on GitHub</span></a>
+        </section>
+
+        <hr>
+
+        <section id="main_content">
+          <h1>
+<a id="hackwork" class="anchor" href="#hackwork" aria-hidden="true"><span class="octicon octicon-link"></span></a>Hackwork</h1>
+
+<blockquote>
+<p>Layout-based PHP micro-framework for full-stack HTML5 sites</p>
+</blockquote>
+
+<p>Hackwork is a layout-based PHP micro-framework made for HTML5 sites. You can
+also make HTML4 sites with Hackwork, don't worry.</p>
+
+<p>Minimal required PHP version is 5.3.0. Hackwork may work on older PHP versions,
+but they aren't officially supported.</p>
+
+<h2>
+<a id="table-of-contents" class="anchor" href="#table-of-contents" aria-hidden="true"><span class="octicon octicon-link"></span></a>Table of contents</h2>
+
+<ul>
+<li><a href="#example">Example</a></li>
+<li><a href="#getting-started">Getting started</a></li>
+<li><a href="#directory-structure">Directory structure</a></li>
+<li><a href="#core">Core</a></li>
+<li><a href="#configuration">Configuration</a></li>
+<li><a href="#layouts">Layouts</a></li>
+<li><a href="#http">HTTP</a></li>
+<li><a href="#errors">Errors</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+
+<h2>
+<a id="example" class="anchor" href="#example" aria-hidden="true"><span class="octicon octicon-link"></span></a>Example</h2>
+
+<div class="highlight highlight-php"><pre><span class="pl-pse">&lt;?php</span><span class="pl-s2"></span>
+<span class="pl-s2"></span>
+<span class="pl-s2"><span class="pl-k">require_once</span> <span class="pl-s1"><span class="pl-pds">'</span>core/hackwork.php<span class="pl-pds">'</span></span>;</span>
+<span class="pl-s2">layout(<span class="pl-s1"><span class="pl-pds">'</span>default<span class="pl-pds">'</span></span>, <span class="pl-s1"><span class="pl-pds">'</span>home<span class="pl-pds">'</span></span>);</span></pre></div>
+
+<h2>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span class="octicon octicon-link"></span></a>Getting started</h2>
+
+<ol>
+<li>Clone the repository.</li>
+<li>
+<a href="#new-layout">Modify layouts for your pages</a>.</li>
+<li>Fill <code>data/</code> and <code>assets/</code>.</li>
+<li>Test your site locally to see does everything works well.</li>
+</ol>
+
+<h2>
+<a id="directory-structure" class="anchor" href="#directory-structure" aria-hidden="true"><span class="octicon octicon-link"></span></a>Directory structure</h2>
+
+<p>Hackwork projects should have a simple directory structure.</p>
+
+<pre><code>.
+├── assets/
+│   ├── css/
+│   ├── fonts/
+│   ├── img/
+│   ├── js/
+│   ├── ...
+├── core/
+│   ├── helpers/
+│   ├── hackwork.php
+├── data/
+│   ├── ...
+└── layouts/
+    └── .../
+        ├── footer.php
+        ├── header.php
+        ├── i.functions.php
+        ├── i.variables.php
+        └── ...
+</code></pre>
+
+<p><code>assets/</code> is the place of cachable resources (e.g. JavaScript).</p>
+
+<p><code>core/</code> is the place of framework core.</p>
+
+<p><code>data/</code> is the place of pages content.</p>
+
+<p><code>layouts/</code> is the base layouts directory.</p>
+
+<h2>
+<a id="core" class="anchor" href="#core" aria-hidden="true"><span class="octicon octicon-link"></span></a>Core</h2>
+
+<h3>
+<a id="constants" class="anchor" href="#constants" aria-hidden="true"><span class="octicon octicon-link"></span></a>Constants</h3>
+
+<p>There are path and configuration constants.</p>
+
+<h4>
+<a id="paths" class="anchor" href="#paths" aria-hidden="true"><span class="octicon octicon-link"></span></a>Paths</h4>
+
+<ul>
+<li>
+<code>ROOT</code>: server root path; don't change if not necessary</li>
+<li>
+<code>PATH</code>: site root path</li>
+<li>
+<code>CORE</code>: framework core path, <code>PATH</code>-relative</li>
+<li>
+<code>HELPERS</code>: helpers path, <code>CORE</code>-relative</li>
+<li>
+<code>LAYOUTS</code>: layouts path, <code>PATH</code>-relative</li>
+<li>
+<code>DATA</code>: data files path, <code>PATH</code>-relative</li>
+<li>
+<code>ASSETS</code>: assets path, isn't <code>PATH</code>-relative</li>
+<li>
+<code>CSS</code>: CSS assets path, <code>ASSETS</code>-relative</li>
+<li>
+<code>JS</code>: JavaScript assets path, <code>ASSETS</code>-relative</li>
+<li>
+<code>FONTS</code>: fonts path, <code>ASSETS</code>-relative</li>
+<li>
+<code>IMG</code>: images path, <code>ASSETS</code>-relative</li>
+</ul>
+
+<p>You should omit trailing slashes in path constants.</p>
+
+<h4>
+<a id="environment" class="anchor" href="#environment" aria-hidden="true"><span class="octicon octicon-link"></span></a>Environment</h4>
+
+<p>There is an environment constant, <code>ENV</code>. Its values are:</p>
+
+<ul>
+<li>
+<code>development</code> for complete error reporting</li>
+<li>
+<code>production</code> for minimal error reporting</li>
+</ul>
+
+<p>By default it's <code>development</code>. You should change it if your site is for
+production.</p>
+
+<h3>
+<a id="helpers" class="anchor" href="#helpers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Helpers</h3>
+
+<p>Hackwork has some helpers, e.g. to make layout. All of them are within
+<code>core/helpers/</code> and they're imported to <code>core/hackwork.php</code>.</p>
+
+<h2>
+<a id="configuration" class="anchor" href="#configuration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>Server configuration is in the <code>core/helpers/config.php</code>. You should edit it to
+adjust the configuration.</p>
+
+<h3>
+<a id="compression" class="anchor" href="#compression" aria-hidden="true"><span class="octicon octicon-link"></span></a>Compression</h3>
+
+<p>Pages loads faster with compression, so Hackwork enables it by default.</p>
+
+<h3>
+<a id="default-charset" class="anchor" href="#default-charset" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default charset</h3>
+
+<p>There is a charset definition to ensure right charset is used everywhere.
+Hackwork sets default charset to UTF-8.</p>
+
+<h3>
+<a id="default-timezone" class="anchor" href="#default-timezone" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default timezone</h3>
+
+<p>PHP requires default timezone for proper working of time functions. Hackwork
+sets default timezone to UTC.</p>
+
+<h2>
+<a id="layouts" class="anchor" href="#layouts" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layouts</h2>
+
+<p>Hackwork uses layouts as page generating model.</p>
+
+<h3>
+<a id="layout-basics" class="anchor" href="#layout-basics" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layout basics</h3>
+
+<p>Layouts are like page templates. You don't need to learn new templating
+language as Hackwork uses pure PHP syntax.</p>
+
+<h4>
+<a id="layout-sections" class="anchor" href="#layout-sections" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layout sections</h4>
+
+<ul>
+<li>
+<code>header.php</code>: page top</li>
+<li>page content (loaded from <code>data/</code>)</li>
+<li>
+<code>footer.php</code>: page bottom</li>
+</ul>
+
+<h4>
+<a id="other-layout-files" class="anchor" href="#other-layout-files" aria-hidden="true"><span class="octicon octicon-link"></span></a>Other layout files</h4>
+
+<p>Use <code>i.</code> prefix for layout files that should be included. Core <code>i.</code> files are:</p>
+
+<ul>
+<li>
+<code>i.variables.php</code>: layout variables</li>
+<li>
+<code>i.functions.php</code>: layout functions</li>
+</ul>
+
+<p>You can create additional <code>i.</code> files, e.g. for constants and classes.</p>
+
+<h3>
+<a id="layout-generator" class="anchor" href="#layout-generator" aria-hidden="true"><span class="octicon octicon-link"></span></a>Layout generator</h3>
+
+<p>To generate layout, use <code>layout($layout, $data, $page_title)</code> function.</p>
+
+<h3>
+<a id="default-layout" class="anchor" href="#default-layout" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout</h3>
+
+<p>Default layout is just a template. It lies within <code>layouts/default/</code>.</p>
+
+<h4>
+<a id="default-layout-variables" class="anchor" href="#default-layout-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout variables</h4>
+
+<p>Default layout variables are in <code>layouts/default/i.variables.php</code>.</p>
+
+<h5>
+<a id="default-layout-base-variables" class="anchor" href="#default-layout-base-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout base variables</h5>
+
+<ul>
+<li>
+<code>$doctype</code>: document type</li>
+</ul>
+
+<h5>
+<a id="default-layout-meta-variables" class="anchor" href="#default-layout-meta-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout meta variables</h5>
+
+<ul>
+<li>
+<code>$charset</code>: character set</li>
+<li>
+<code>$meta</code>: <code>&lt;meta&gt;</code> tags content array
+
+<ul>
+<li>
+<code>$meta['site_title']</code>: site title</li>
+<li>
+<code>$meta['author']</code>: site author</li>
+<li>
+<code>$meta['description']</code>: site description</li>
+<li>
+<code>$meta['keywords']</code>: site keywords separated with comma</li>
+<li>
+<code>$meta['robots']</code>: robots meta setting</li>
+<li>
+<code>$meta['viewport']</code>: visible part of canvas at page</li>
+</ul>
+</li>
+<li>
+<code>$title_divider</code>: divider between page and site title</li>
+<li>
+<code>$title</code>: generated title</li>
+</ul>
+
+<h5>
+<a id="default-layout-assets-variables" class="anchor" href="#default-layout-assets-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout assets variables</h5>
+
+<ul>
+<li>
+<code>$stylesheet</code>: <code>&lt;link rel="stylesheet"&gt;</code> tags content array</li>
+<li>
+<code>$icon</code>: <code>&lt;link rel="*icon"&gt;</code> tags content array
+
+<ul>
+<li>
+<code>$icon['favicon']</code>: favicon path</li>
+<li>
+<code>$icon['apple_touch_icon']</code>: Apple touch icon path</li>
+</ul>
+</li>
+<li>
+<code>$script</code>: <code>&lt;script&gt;</code> tags content array</li>
+</ul>
+
+<h5>
+<a id="default-layout-copyright-variables" class="anchor" href="#default-layout-copyright-variables" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout copyright variables</h5>
+
+<ul>
+<li>
+<code>$cpsign</code>: copyright sign</li>
+<li>
+<code>$cpyear</code>: first copyright year</li>
+<li>
+<code>$cpowner</code>: copyright owner</li>
+<li>
+<code>$copyright</code>: copyright text</li>
+</ul>
+
+<h4>
+<a id="default-layout-functions" class="anchor" href="#default-layout-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout functions</h4>
+
+<p>Default layout functions are in <code>layouts/default/i.functions.php</code>.</p>
+
+<h5>
+<a id="default-layout-generation-functions" class="anchor" href="#default-layout-generation-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout generation functions</h5>
+
+<ul>
+<li>
+<code>make_meta($array)</code>: generates <code>&lt;meta&gt;</code> tags from given array</li>
+<li>
+<code>make_stylesheets($array)</code>: generates <code>&lt;link rel="stylesheet"&gt;</code> tags from
+given array</li>
+<li>
+<code>make_icons($array)</code>: generates <code>&lt;link rel="*icon*"&gt;</code> tags from given array</li>
+<li>
+<code>make_scripts($array)</code>: generates <code>&lt;script&gt;</code> tags from given array</li>
+</ul>
+
+<h5>
+<a id="default-layout-basic-functions" class="anchor" href="#default-layout-basic-functions" aria-hidden="true"><span class="octicon octicon-link"></span></a>Default layout basic functions</h5>
+
+<ul>
+<li>
+<code>is_currentfile($file)</code>: checks is the given argument current file</li>
+<li>
+<code>filecount($dir, $ignore)</code>: counts files in a directory</li>
+<li>
+<code>cat($url, $pre)</code>: imitates <code>cat</code> Unix command</li>
+<li>
+<code>randomval($array)</code>: selects a random value from array</li>
+<li>
+<code>undot($string)</code>: removes dots from string</li>
+</ul>
+
+<h3>
+<a id="new-layout" class="anchor" href="#new-layout" aria-hidden="true"><span class="octicon octicon-link"></span></a>New layout</h3>
+
+<p>To make a new layout, create a new directory within <code>layouts/</code> and follow
+<a href="#layout-basics">layout basics</a>. You can use <a href="#default-layout">default layout</a>
+as template.</p>
+
+<h2>
+<a id="http" class="anchor" href="#http" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP</h2>
+
+<p>Hackwork caches HTTP properties and header messages for easier HTTP control.</p>
+
+<h3>
+<a id="http-properties" class="anchor" href="#http-properties" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP properties</h3>
+
+<ul>
+<li>
+<code>$httpv</code>: HTTP version; don't change if not necessary</li>
+</ul>
+
+<h3>
+<a id="http-headers" class="anchor" href="#http-headers" aria-hidden="true"><span class="octicon octicon-link"></span></a>HTTP headers</h3>
+
+<p><code>$header</code> is an array of default HTTP header messages. You can use headers with
+<code>$header[&lt;status-number&gt;]</code>.</p>
+
+<h2>
+<a id="errors" class="anchor" href="#errors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Errors</h2>
+
+<p>Hackwork has a simple error thrower.</p>
+
+<h3>
+<a id="exit-status-codes" class="anchor" href="#exit-status-codes" aria-hidden="true"><span class="octicon octicon-link"></span></a>Exit status codes</h3>
+
+<ul>
+<li>
+<code>EXIT_SUCCESS</code>: no errors</li>
+<li>
+<code>EXIT_ERROR</code>: generic error</li>
+<li>
+<code>EXIT_CONFIG</code>: configuration error</li>
+<li>
+<code>EXIT_UNKNOWN_FILE</code>: file not found</li>
+<li>
+<code>EXIT_UNKNOWN_CLASS</code>: unknown class</li>
+<li>
+<code>EXIT_UNKNOWN_METHOD</code>: unknown class member</li>
+<li>
+<code>EXIT_USER_INPUT</code>: invalid user input</li>
+<li>
+<code>EXIT_DATABASE</code>: database error</li>
+<li>
+<code>EXIT_AUTO_MIN</code>: minimal automatically-assigned error code</li>
+<li>
+<code>EXIT_AUTO_MAX</code>: maximal automatically-assigned error code</li>
+</ul>
+
+<h3>
+<a id="error-thrower" class="anchor" href="#error-thrower" aria-hidden="true"><span class="octicon octicon-link"></span></a>Error thrower</h3>
+
+<p>To throw an error, set consistent headers and terminate script, use
+<code>throwerr($header_status, $exit_status, $msg, $header_msg)</code>.</p>
+
+<h2>
+<a id="contributing" class="anchor" href="#contributing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Contributing</h2>
+
+<p>Want to contribute? Check out
+<a href="https://github.com/ZDroid/hackwork/blob/master/CONTRIBUTING.md">contributing guide</a>.</p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>MIT © <a href="https://github.com/ZDroid">Zlatan Vasović</a></p>
+        </section>
+
+        <footer>
+          Pazwork is maintained by <a href="https://github.com/sakara">sakara</a><br>
+          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
+        </footer>
+
+        
+      </div>
+    </div>
+  </body>
+</html>
