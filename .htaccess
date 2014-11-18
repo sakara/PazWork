@@ -1,0 +1,115 @@
+# follow symlinks & disallow directory listing
+# note: your hosting company might not allow these directives to be set. In that case,
+# you should either find another hosting company (advised) or remove the line below.
+#Options +SymLinksIfOwnerMatch -Indexes
+
+# file etags (used when comparing local cached file to server file)
+FileETag MTime Size
+
+<IfModule mod_rewrite.c>
+	# nice urls
+	RewriteEngine On
+	RewriteBase /PazWork/
+	
+	# forbidden 
+	# Block out any script trying to base64_encode data within the URL.
+	RewriteCond %{QUERY_STRING} base64_encode[^(]*\([^)]*\) [OR]
+	# Block out any script that includes a <script> tag in URL.
+	RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC,OR]
+	# Block out any script trying to set a PHP GLOBALS variable via URL.
+	RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+	# Block out any script trying to modify a _REQUEST variable via URL.
+	RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+	# Return 403 Forbidden header and show the content of the root homepage
+	RewriteRule .* index.php [F]
+	
+	RewriteRule .*\.gitignore - [F]
+	RewriteRule composer\.json - [F]
+	RewriteRule composer\.lock - [F]
+	RewriteRule .*\.md - [F]
+	#RewriteRule uploads/resize\.php - [F]
+	RewriteRule uploads/cache - [F]
+	RewriteRule uploads/_thumbs - [F]
+	#RewriteRule uploads/files - [F]
+
+	################ handle urls ##################
+	# escludi directory dal rewrite
+	RewriteCond %{REQUEST_URI}  !(admin) [NC]
+	#RewriteCond %{REQUEST_URI}  !(admin|uploads|templates|includes) [NC]
+	
+	### sezioni
+	RewriteRule ^([^/]*)/$ index.php?section=$1 [L]
+	
+	#RewriteRule ^private/list/?$ index.php?section=private&view=list [L]
+	#RewriteRule ^private/([^/]*)\.html$ index.php?section=private&view=$1 [L]
+	
+	RewriteRule ^contacts/confirm\.html$ index.php?section=contacts&view=confirm [L]
+
+	### paginazione
+	#RewriteRule ^private/list/num/([0-9]+)/?$ index.php?section=private&view=list&num=$1 [L]
+	RewriteRule ^([^/]*)/cat/([^/]*)/num/([0-9]+)/?$ index.php?section=$1&view=cat&catid=$2&num=$3 [L]
+	RewriteRule ^([^/]*)/num/([0-9]+)/?$ index.php?section=$1&num=$2 [L]
+
+	### categorie
+	
+	RewriteRule ^([^/]*)/cat/([^/]*)/?$ index.php?section=$1&view=cat&catid=$2 [L]
+	# TODO aggiungere slug al link
+	RewriteRule ^([^/]*)/cat/([0-9]+)-([^/]*)\.html$ index.php?section=$1&view=cat&catid=$2&slug=$3 [L]
+	
+	### singoli
+	RewriteRule ^([^/]*)/single/([^/]*)/?$ index.php?section=$1&view=single&id=$2 [L]
+	# TODO aggiungere slug al link
+	RewriteRule ^([^/]*)/single/([0-9]+)-([^/]*)\.html$ index.php?section=$1&view=single&id=$2&slug=$3 [L]
+	RewriteRule ^([^/]*)\.html$ index.php?section=pages&view=single&slug=$1 [L]
+	
+	
+	RewriteCond %{REQUEST_URI} !^/index\.php
+	#RewriteCond %{REQUEST_URI} !^$
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule . index.php [NC,L]
+
+	# set environment variable to let PHP know that urls are being rewritten
+	RewriteRule .* - [E=MOD_REWRITE:1]
+</IfModule>
+
+
+
+# file caching in browser
+<IfModule mod_expires.c>
+	ExpiresActive On
+	<FilesMatch "\.(ico|gif|jpe?g|png|svg|svgz|js|css|swf|ttf|otf|woff|eot)$">
+		ExpiresDefault "access plus 1 month"
+	</FilesMatch>
+</IfModule>
+
+# gzip on Apache 2
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/xml application/xml text/javascript text/css application/x-javascript application/xhtml+xml application/javascript
+
+	# these browsers do not support deflate
+	BrowserMatch ^Mozilla/4 gzip-only-text/html
+	BrowserMatch ^Mozilla/4.0[678] no-gzip
+	BrowserMatch bMSIE !no-gzip !gzip-only-text/html
+
+	SetEnvIf User-Agent ".*MSIE.*" nokeepalive ssl-unclean-shutdown downgrade-1.0 force
+</IfModule>
+
+# gzip on Apache 1
+<IfModule mod_gzip.c>
+	mod_gzip_on Yes
+
+	mod_gzip_item_include mime ^application/javascript$
+	mod_gzip_item_include mime ^application/x-javascript$
+	mod_gzip_item_include mime ^application/xhtml+xml$
+	mod_gzip_item_include mime ^application/xml$
+	mod_gzip_item_include mime ^text/css$
+	mod_gzip_item_include mime ^text/html$
+	mod_gzip_item_include mime ^text/javascript$
+	mod_gzip_item_include mime ^text/plain$
+	mod_gzip_item_include mime ^text/xml$
+	mod_gzip_item_exclude mime ^image/
+
+	# browser issues
+	mod_gzip_item_exclude reqheader "User-agent: Mozilla/4.0[678]"
+</IfModule>

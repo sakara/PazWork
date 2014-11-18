@@ -54,7 +54,7 @@ switch ($section) {
 	// NEWS
 	
 	case "news":
-		if(isset($_GET['view'])): $action = sanitizeOne($_GET['view'], 'str'); else: $action = 'list'; endif;
+		if(isset($_GET['view'])): $action = sanitizeOne($_GET['view'], 'str'); else: $action = 'all'; endif;
 		switch ($action){
 			case "single":
 				if(isset($_GET['id'])):
@@ -68,7 +68,7 @@ switch ($section) {
 				endif;
 			break; // fine visualizza pagina con id
 
-			case "list":
+			case "cat":
 				if(isset($_GET['catid'])):
 					if ($_GET['catid'] != ''):
 						layout('default', 'list', 'news');
@@ -79,11 +79,11 @@ switch ($section) {
 					layout('default', 'list', 'news'); // se non c'è un catid lista tutte le news
 				endif;
 			break; // fine visualizza news con id categoria (catid)
-
-
-			case "error":
-				layout('default', 'error', '');
-			break;
+			
+			case "all":
+				// TODO FARE unica funzione all? con variabile $type = news, portfolio, private etc???
+				news_list_action($num, $limit);
+			break; // fine lista tutte le news di tutte le categorie
 
 			default:
 				layout('default', 'list', 'news'); // lista tutte le news per default

@@ -18,9 +18,9 @@ $doctype = '<!DOCTYPE html>';
 // `<meta>`
 $charset = 'utf-8';
 $meta = array(
-  'author' => array('author', 'Mr. Ghost'),
-  'description' => array('description', 'Personal site of Mr. Ghost.'),
-  'keywords' => array('keywords', 'mister, ghost, site, website'),
+  'author' => array('author', 'Sakara'),
+  'description' => array('description', 'Personal site of Sakara.'),
+  'keywords' => array('keywords', 'sakara, pazlab, pazwork, site, website'),
   'robots' => array('robots', 'noodp,noydir'),
   'viewport' => array('viewport', 'width=device-width, initial-scale=1')
 );
