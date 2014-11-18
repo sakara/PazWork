@@ -11,10 +11,10 @@ defined('PATH') or exit('No direct script access allowed');
 /*
  * Layout generator
  *
- * `$layout`      => layout name
- * $module => nome modulo es. news o pages (opzionale)
- * `$data`        => data file name
- * `$page_title`  => [optional] page title
+ * $layout      => layout name
+ * $module 		=> module name ie. news or pages (optional)
+ * $data        => data file name
+ * $page_title  => [optional] page title
  */
 
 function layout($layout = 'default', $data = 'view', $module = 'home', $page_title = '') {

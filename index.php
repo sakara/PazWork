@@ -3,7 +3,7 @@
 define('_PAZLAB', 1);
 
 // includo il framework
-require_once 'core/pazwork.php';
+require_once 'admin/core/pazwork.php';
 
 // inizio controllando che cosa passa il browser (section, view, etc) e se il GET è vuoto redirigo alla home o ad una pagina di errore 404
 if(isset($_GET['section'])):

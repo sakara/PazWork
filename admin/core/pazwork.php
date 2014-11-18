@@ -13,13 +13,42 @@ defined('_PAZLAB') or die;
 
 // Root
 define('ROOT', $_SERVER['DOCUMENT_ROOT']);
-define('PATH', ROOT . '/pazcms');
+define('PATH', ROOT . '/PazWork');
 
 // DB
-define ('DB_HOST', 'localhost');
-define ('DB_NAME', 'pazcms');
-define ('DB_USER', 'root');
-define ('DB_PASS', '');
+/*
+ * Environment
+ *
+ * Values:
+ *
+ * - development
+ * - production
+ */
+
+define('ENV', 'development');
+
+// Define consistent error reporting settings
+switch (ENV) {
+	case 'development':
+	error_reporting(-1);
+	ini_set('display_errors', 1);
+	define ('DB_HOST', 'localhost');
+	define ('DB_NAME', 'pazcms');
+	define ('DB_USER', 'root');
+	define ('DB_PASS', '');
+	break;
+
+	case 'production':
+	ini_set('display_errors', 0);
+	define ('DB_HOST', 'localhost');
+	define ('DB_NAME', 'pazcms');
+	define ('DB_USER', 'root');
+	define ('DB_PASS', '');
+	break;
+
+	default:
+	throwerr(503, EXIT_CONFIG, 'Application environment is set incorrectly.');
+}
 
 /*##################################*/
 
@@ -27,10 +56,10 @@ define ('DB_PASS', '');
 define ('ADMIN', PATH . '/admin');
 // Data
 define('DATA', PATH . '/data');
-// Uploads
-define('UPLOAD', PATH . '/uploads');
 // Layouts
 define('LAYOUTS', PATH . '/layouts');
+// Uploads
+define('UPLOAD', PATH . '/uploads');
 
 // Core
 define('CORE', ADMIN . '/core');
@@ -51,8 +80,7 @@ $_helpers = array(
   	'http',
   	'errors',
   	'layout',
-  	'config',
-	'db',
+	//'db',
 	'functions'
 );
 
@@ -63,3 +91,17 @@ foreach ($_helpers as $helper) {
     require_once $helper;
   }
 }
+
+/*
+ * Settings
+ */
+
+// Compression
+ini_set('zlib.output_compression', 1);
+ini_set('zlib.output_compression_level', -1);
+
+// Default charset
+ini_set('default_charset', 'utf-8');
+
+// Default timezone
+date_default_timezone_set('UTC');
