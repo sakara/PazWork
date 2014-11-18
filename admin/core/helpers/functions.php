@@ -33,7 +33,6 @@ function news_show($id)
 }
 /*****/
 
-
 /**
 * Sanitize only one variable .
 * Returns the variable sanitized according to the desired type or true/false

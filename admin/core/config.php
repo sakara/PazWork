@@ -4,7 +4,7 @@ defined('_PAZLAB') or die;
 // ROOT
 define('ROOT', $_SERVER['DOCUMENT_ROOT']);
 // SUBDIR
-define('PATH', ROOT . '/PazWork');
+define('PATH', ROOT . 'PazWork');
 
 // DB
 // development or production
