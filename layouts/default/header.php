@@ -6,7 +6,7 @@
     <?php
     make_meta($meta);
     make_stylesheets($stylesheet);
-    make_icons($icon);
+    //make_icons($icon);
     ?>
   </head>
   <body>

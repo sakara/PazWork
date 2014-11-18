@@ -29,7 +29,7 @@ function make_stylesheets($array) {
 // `make_icons`
 //
 // Generates `<link rel="*icon*">` tags from given array.
-function make_icons($array) {
+/*function make_icons($array) {
   foreach ($array as $value) {
     switch ($value[0]) {
       case 'icon':
@@ -40,7 +40,7 @@ function make_icons($array) {
         echo "<link rel=\"$value[0]\" href=\"$value[1]\">\n";
     }
   }
-}
+}*/
 
 // `make_scripts`
 //

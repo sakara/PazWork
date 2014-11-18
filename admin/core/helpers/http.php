@@ -1,5 +1,5 @@
 <?php
-
+defined('_PAZLAB') or die;
 /**
  * HTTP helper
  *

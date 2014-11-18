@@ -1,5 +1,5 @@
 <?php
-
+defined('_PAZLAB') or die;
 /**
  * Errors helper
  *
@@ -44,5 +44,5 @@ function throwerr($header_status, $exit_status, $msg, $header_msg = '') {
 
   header($header_msg, $header_status);
   echo $msg;
-  exit($exit_status);
+  //exit($exit_status);
 }
