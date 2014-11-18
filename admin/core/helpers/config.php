@@ -25,7 +25,7 @@ switch (ENV) {
     error_reporting(-1);
     ini_set('display_errors', 1);
     define ('DB_HOST', 'localhost');
-	define ('DB_NAME', 'pazlab_cms');
+	define ('DB_NAME', 'pazcms');
 	define ('DB_USER', 'root');
 	define ('DB_PASS', '');
     break;
@@ -33,9 +33,9 @@ switch (ENV) {
   case 'production':
     ini_set('display_errors', 0);
     define ('DB_HOST', 'localhost');
-	define ('DB_NAME', 'pazlab_cms');
-	define ('DB_USER', 'pazlab');
-	define ('DB_PASS', 'shax77&8urn');
+	define ('DB_NAME', 'pazcms');
+	define ('DB_USER', 'root');
+	define ('DB_PASS', '');
     break;
 
   default:
