@@ -1,7 +1,7 @@
 <?php
 defined('_PAZLAB') or die;
 /**
- * PazWork is based on Hackwork v2.0.1 (http://git.io/hackwork) but improved and powered
+ * PazWork is based on Hackwork v2.0.2 (http://git.io/hackwork) but improved and powered
  * Licensed under the MIT License.
  */
 
