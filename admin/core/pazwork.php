@@ -13,7 +13,7 @@ require_once ('config.php');
  * add yours here
  */
 
-$_helpers = array(
+/*$_helpers = array(
   	'http',
   	'errors',
   	'layout',
@@ -27,6 +27,10 @@ foreach ($_helpers as $helper) {
   if (file_exists($helper)) {
     require_once $helper;
   }
+}*/
+
+foreach (glob(HELPERS . '/*.php') as $helper) {
+  require_once $helper;
 }
 
 /*
