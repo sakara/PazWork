@@ -18,11 +18,11 @@ $doctype = '<!DOCTYPE html>';
 // `<meta>`
 $charset = 'utf-8';
 $meta = array(
-  'author' => array('author', 'Sakara'),
-  'description' => array('description', 'Personal site of Sakara.'),
-  'keywords' => array('keywords', 'sakara, pazlab, pazwork, site, website'),
-  'robots' => array('robots', 'noodp,noydir'),
-  'viewport' => array('viewport', 'width=device-width, initial-scale=1')
+  'author' => 'Sakara',
+  'description' 'Personal site of Sakara.',
+  'keywords' => 'sakara, pazlab, pazwork, site, website',
+  'robots' => 'robots', 'noodp,noydir',
+  'viewport' => 'width=device-width, initial-scale=1'
 );
 
 // `<title>`
@@ -46,9 +46,8 @@ $stylesheet = array(
 
 // `<link rel="*icon*">`
 $icon = array(
-  'favicon' => array('icon', IMG . '/favicon.ico'),
-  'apple_touch_icon' => array('apple-touch-icon', IMG .
-                              '/apple-touch-icon.png')
+  'favicon' => IMG . '/favicon.ico',
+  'apple-touch-icon' => IMG . '/apple-touch-icon.png'
 );
 
 // `<script>`
@@ -62,5 +61,5 @@ $script = array(
 
 $cpsign = '&copy;';
 $cpyear = date('Y');
-$cpowner = $meta['author'][1];
+$cpowner = $meta['author'];
 $copyright = $cpsign $cpyear $cpowner;
